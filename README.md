@@ -3,7 +3,8 @@
 Code for Backend Api 
 
 Method - POST
-URL - 
+
+URL - http://localhost:5193/ReadImageFromPath
 
 Body - 
 
