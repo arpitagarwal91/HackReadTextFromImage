@@ -1,3 +1,3 @@
 ﻿<Project>
-  <Import Project="..\build\HackReadTextFromImage.props" />
+  <Import Project="../build/HackReadTextFromImage.props" />
 </Project>
