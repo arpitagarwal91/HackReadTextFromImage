@@ -1,0 +1,146 @@
+{
+  "appcat": {
+    "version": "1.0.0",
+    "analyzeDate": "2023-12-06T00:00:00Z",
+    "targetPlatform": "Azure App Service (Windows)",
+    "source": {
+      "name": "HackReadTextFromImage",
+      "type": "ASP.NET Core Web API",
+      "version": "7.0",
+      "language": "C#"
+    },
+    "compatibility": {
+      "overall": "Compatible",
+      "issues": []
+    },
+    "analysis": {
+      "framework": {
+        "name": ".NET",
+        "version": "7.0",
+        "compatibility": "Compatible",
+        "notes": ".NET 7.0 is fully supported on Azure App Service (Windows)"
+      },
+      "dependencies": [
+        {
+          "name": "Microsoft.AspNetCore.OpenApi",
+          "version": "7.0.10",
+          "compatibility": "Compatible",
+          "notes": "Fully compatible with Azure App Service"
+        },
+        {
+          "name": "Swashbuckle.AspNetCore",
+          "version": "6.5.0",
+          "compatibility": "Compatible",
+          "notes": "Fully compatible with Azure App Service"
+        },
+        {
+          "name": "Microsoft.Azure.CognitiveServices.Vision.ComputerVision",
+          "version": "6.0.0",
+          "compatibility": "Compatible",
+          "notes": "Fully compatible with Azure App Service and Azure services integration"
+        },
+        {
+          "name": "Microsoft.Extensions.Configuration.Json",
+          "version": "5.0.0",
+          "compatibility": "Compatible",
+          "notes": "Fully compatible with Azure App Service"
+        },
+        {
+          "name": "System.Drawing.Common",
+          "version": "6.0.0",
+          "compatibility": "Compatible",
+          "notes": "Fully compatible with Azure App Service (Windows). Note: May require additional configuration in Linux environments"
+        }
+      ],
+      "apiUsage": [
+        {
+          "api": "File I/O",
+          "usage": "System.IO.File.OpenRead(string path)",
+          "compatibility": "Warning",
+          "notes": "File I/O operations use local file paths which may need to be adjusted in Azure App Service. Ensure the app has proper permissions to access files. Consider using Azure Blob Storage for file storage instead of local files in a production environment.",
+          "location": "ReadImageFromPathController.cs:67",
+          "impact": "Low"
+        }
+      ],
+      "configuration": [
+        {
+          "name": "CognitiveServicesEndpoint",
+          "type": "External Service URL",
+          "compatibility": "Compatible",
+          "notes": "Ensure this configuration is correctly set in Azure App Service application settings"
+        },
+        {
+          "name": "CognitiveServiceKey",
+          "type": "Sensitive Credential",
+          "compatibility": "Compatible",
+          "notes": "Ensure this configuration is correctly set in Azure App Service application settings as a secure configuration value"
+        }
+      ],
+      "hosting": {
+        "httpProtocol": "Compatible",
+        "ports": "Compatible",
+        "staticContent": "None",
+        "webServer": "Compatible"
+      }
+    },
+    "recommendations": [
+      {
+        "id": "1",
+        "title": "Use Azure App Configuration or Key Vault for sensitive settings",
+        "description": "Move sensitive settings like API keys to Azure Key Vault or App Configuration service",
+        "impact": "Medium",
+        "difficulty": "Low"
+      },
+      {
+        "id": "2",
+        "title": "Update file I/O operations for Azure App Service",
+        "description": "Consider using Azure Storage for file operations instead of local file system for better scalability",
+        "impact": "Medium",
+        "difficulty": "Medium"
+      },
+      {
+        "id": "3",
+        "title": "Configure logging for Azure App Service",
+        "description": "Implement Azure Application Insights for comprehensive monitoring and logging",
+        "impact": "Low",
+        "difficulty": "Low"
+      },
+      {
+        "id": "4", 
+        "title": "Keep .NET version updated",
+        "description": ".NET 7.0 is nearing end of support. Consider updating to .NET 8.0 for long-term support",
+        "impact": "Low",
+        "difficulty": "Medium"
+      }
+    ],
+    "migrationPath": {
+      "steps": [
+        {
+          "id": "1",
+          "title": "Create Azure App Service (Windows)",
+          "description": "Create a new Azure App Service with .NET 7.0 runtime stack"
+        },
+        {
+          "id": "2",
+          "title": "Configure application settings",
+          "description": "Add CognitiveServicesEndpoint and CognitiveServiceKey as application settings"
+        },
+        {
+          "id": "3", 
+          "title": "Set up deployment",
+          "description": "Configure CI/CD pipeline or deployment method"
+        },
+        {
+          "id": "4",
+          "title": "Deploy application",
+          "description": "Deploy the application to Azure App Service"
+        },
+        {
+          "id": "5",
+          "title": "Verify functionality",
+          "description": "Verify the application functions correctly in Azure App Service"
+        }
+      ]
+    }
+  }
+}
